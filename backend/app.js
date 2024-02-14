@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import dbConnection from './database/dbConnection.js';
 import { errorMiddleware } from "./middlewares/error.js";
 import userRouter from "./routes/user.routes.js";
+import blogRouter from "./routes/blog.routes.js";
 import fileUpload from 'express-fileupload';
 
 const app = express();
@@ -31,6 +32,8 @@ app.use(fileUpload({
 
 // difind user routes----------------------------------------------------------------
 app.use("/api/v1/user", userRouter);  
+// difind Blof routes----------------------------------------------------------------
+app.use("/api/v1/blog", blogRouter);  
 
 app.use(errorMiddleware);
 
