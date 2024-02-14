@@ -5,8 +5,7 @@ import cookieParser from 'cookie-parser';
 import dbConnection from './database/dbConnection.js';
 import { errorMiddleware } from "./middlewares/error.js";
 import userRouter from "./routes/user.routes.js";
-
-
+import fileUpload from 'express-fileupload';
 
 const app = express();
 dotenv.config({ path: "./config/config.env" });
@@ -24,8 +23,14 @@ app.use(express.urlencoded({ extended: true }));
 //call Database ----------------------------------------------------------------
 dbConnection();
 
+//files upload krne k liyee ----------------------------------------------------------------
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir:"/tmp/"
+}));
+
 // difind user routes----------------------------------------------------------------
-app.use("/api/v1", userRouter);  
+app.use("/api/v1/user", userRouter);  
 
 app.use(errorMiddleware);
 

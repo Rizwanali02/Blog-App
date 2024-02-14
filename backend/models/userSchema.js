@@ -26,9 +26,11 @@ const userSchema = new mongoose.Schema({
     avatar: {
         public_id: {
             type: String,
+            required: true,
         },
         url: {
             type: String,
+            required: true,
         }
     },
     education: {
@@ -67,17 +69,17 @@ userSchema.pre("save", async function () {
 });
 
 
-//compare login user :- enter password correct hai ya nhi --------------------
-userSchema.methods.comparePassword =function (enteredPassword) {
+//compare login user :- enter password correct ? --------------------------------------------
+userSchema.methods.comparePassword = function (enteredPassword) {
     return bcrypt.compare(enteredPassword, this.password);
 };
 
 
-//Generateing JWT Token for user --------------------------------
+//Generateing JWT Token for user --------------------------------------------------------
 userSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: process.env.JWT_EXPIRES,
+        expiresIn: process.env.JWT_EXPIRES,
     });
-  };
+};
 
 export const User = mongoose.model('User', userSchema);

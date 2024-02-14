@@ -2,12 +2,31 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js"
 import { ErrorHandle } from "../middlewares/error.js"
 import { User } from "../models/userSchema.js";
 import { sendToken } from "../utils/jwtToken.js";
+import cloudinary from "cloudinary";
+
 
 
 const register = catchAsyncErrors(async (req, res, next) => {
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return next(new ErrorHandle("User Avatar Required", 400));
+    }
+
+    const { avatar } = req.files;
+    const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
+
+    if (!allowedFormats.includes(avatar.mimetype)) {
+        return next(
+            new ErrorHandle(
+            "Inavalid file type. Please provide valid file type png , jpeg and webp",
+            400))
+    };
+
+
+
     const { name, email, password, phone, role, education } = req.body;
 
-    if (!name || !email || !password || !phone || !role || !education) {
+    if (!name || !email || !password || !phone || !role || !education || !avatar) {
         return next(new ErrorHandle("Please fill all fileds", 400));
     }
 
@@ -16,13 +35,24 @@ const register = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandle("User already exists", 400));
     }
 
+
+    const cloudinaryResponse = await cloudinary.uploader.upload(avatar.tempFilePath);
+
+    if (!cloudinaryResponse || cloudinaryResponse.error) {
+        console.error("Cloudinary error : ", cloudinaryResponse.error || "Unknown cloudinary error");
+    }
+
     user = await User.create({
         name,
         email,
         password,
         phone,
         role,
-        education
+        education,
+        avatar: {
+            public_id: cloudinaryResponse.public_id,
+            url: cloudinaryResponse.secure_url
+        }
     });
     sendToken(user, 200, "User registered successfully", res);
 
@@ -67,7 +97,7 @@ const logout = catchAsyncErrors((req, res, next) => {
 
 });
 
-const getMyProfile=(req,res,next)=>{
+const getMyProfile = (req, res, next) => {
 
     const user = req.user;
     res.status(200).json({
@@ -76,10 +106,21 @@ const getMyProfile=(req,res,next)=>{
     });
 }
 
+const getAllAuthors = catchAsyncErrors(async (req, res, next) => {
+
+    const authors = await User.find({ role: "Author" });
+
+    res.status(200).json({
+        success: true,
+        authors
+    });
+});
+
 
 export {
     register,
     login,
     logout,
-    getMyProfile
+    getMyProfile,
+    getAllAuthors
 }
