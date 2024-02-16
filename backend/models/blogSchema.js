@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const blogSchema = new mongoose.Schema({
 
-    titile: {
+    title: {
         type: String,
         required: true,
         minLength: [10, "Blog title must contain at least 10 character"],
@@ -44,8 +44,6 @@ const blogSchema = new mongoose.Schema({
         type: String,
         minLength: [50, "Blog intro must contain at least 50 character"],
     },
-
-
     //para Two
     paraTwoImage: {
         public_id: {
@@ -64,7 +62,6 @@ const blogSchema = new mongoose.Schema({
         type: String,
         minLength: [50, "Blog intro must contain at least 50 character"],
     },
-
     //para Three
     paraThreeImage: {
         public_id: {
@@ -102,6 +99,10 @@ const blogSchema = new mongoose.Schema({
     authorAvatar: {
         type: String,
         required: true
+    },
+    published: {
+        type: Boolean,
+        default: false
     }
 
 
