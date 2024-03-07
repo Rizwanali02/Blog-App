@@ -8,11 +8,15 @@ import userRouter from "./routes/user.routes.js";
 import blogRouter from "./routes/blog.routes.js";
 import fileUpload from 'express-fileupload';
 
-const app = express();
 dotenv.config({ path: "./config/config.env" });
+const app = express();
+
+
+//call Database ----------------------------------------------------------------
+dbConnection();
 
 app.use(cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: process.env.FRONTEND_URL,
     methods: ["GET", "PUT", "DELETE", "POST"],
     credentials: true
 }));
@@ -21,13 +25,12 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//call Database ----------------------------------------------------------------
-dbConnection();
+
 
 //files upload krne k liyee ----------------------------------------------------------------
 app.use(fileUpload({
     useTempFiles: true,
-    tempFileDir:"/tmp/"
+    tempFileDir: "/tmp/"
 }));
 
 // difind user routes----------------------------------------------------------------
