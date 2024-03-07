@@ -16,7 +16,7 @@ const app = express();
 dbConnection();
 
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "*",
     methods: ["GET", "PUT", "DELETE", "POST"],
     credentials: true
 }));
