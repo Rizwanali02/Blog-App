@@ -41,7 +41,7 @@ const Register = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/user/register",
+        "https://calm-ruby-parrot-shoe.cyclic.app/api/v1/user/register",
         formData,
         {
           withCredentials: true,

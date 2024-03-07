@@ -97,7 +97,7 @@ const CreateBlog = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/blog/post",
+        "https://calm-ruby-parrot-shoe.cyclic.app/api/v1/blog/post",
         formData,
         {
           withCredentials: true,

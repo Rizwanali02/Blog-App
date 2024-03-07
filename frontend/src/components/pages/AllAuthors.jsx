@@ -9,7 +9,7 @@ const AllAuthors = () => {
   useEffect(() => {
     const fetchAuthors = async () => {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/user/authors",
+        "https://calm-ruby-parrot-shoe.cyclic.app/api/v1/user/authors",
         { withCredentials: true }
       );
       console.log(data);

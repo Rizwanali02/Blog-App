@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     await axios
       .post(
-        "http://localhost:8000/api/v1/user/login",
+        "https://calm-ruby-parrot-shoe.cyclic.app/api/v1/user/login",
         { email, password, role },
         {
           withCredentials: true,

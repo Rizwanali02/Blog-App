@@ -17,7 +17,7 @@ const SideBar = ({ setComponent }) => {
     e.preventDefault();
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/user/logout",
+        "https://calm-ruby-parrot-shoe.cyclic.app/api/v1/user/logout",
         { withCredentials: true }
       );
       setIsAuthenticated(false);
