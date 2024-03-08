@@ -33,7 +33,7 @@ app.use(fileUpload({
     tempFileDir: "/tmp/"
 }));
 
-app.post("/", (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).json({
         succss: true,
         message: "Backend Running Successfully"
