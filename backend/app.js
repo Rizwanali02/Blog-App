@@ -33,10 +33,18 @@ app.use(fileUpload({
     tempFileDir: "/tmp/"
 }));
 
+app.post("/", (req, res) => {
+    res.status(200).json({
+        succss: true,
+        message: "Backend Running Successfully"
+    })
+
+});
+
 // difind user routes----------------------------------------------------------------
-app.use("/api/v1/user", userRouter);  
+app.use("/api/v1/user", userRouter);
 // difind Blof routes----------------------------------------------------------------
-app.use("/api/v1/blog", blogRouter);  
+app.use("/api/v1/blog", blogRouter);
 
 app.use(errorMiddleware);
 
