@@ -16,7 +16,7 @@ const app = express();
 dbConnection();
 
 app.use(cors({
-    origin: "*",
+    origin: `https://blog-app-chi-peach.vercel.app`,
     methods: ["GET", "PUT", "DELETE", "POST"],
     credentials: true
 }));
