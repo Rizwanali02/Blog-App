@@ -11,7 +11,7 @@ const SingleBlog = () => {
     const getSingleBlog = async () => {
       try {
         const { data } = await axios.get(
-          `https://calm-ruby-parrot-shoe.cyclic.app/api/v1/blog/single/${id}`,
+          `https://calm-ruby-parrot-shoe.cyclic.app/api/v1/blog/singleblog/${id}`,
           { withCredentials: true }
         );
         setBlog(data.blog);
