@@ -13,7 +13,7 @@ const LatestBlogs = ({ heading, newClass, blogs }) => {
         {blogs &&
           blogs.map((element) => {
             return (
-              <Link to={`/blog/${element._id}`} className="card" key={element._id}>
+              <Link to={`/blog/single/${element._id}`} className="card" key={element._id}>
                 <img src={element.mainImage.url} alt="blog" />
                 <span className="category">{element.category}</span>
                 <h4>{element.title}</h4>
