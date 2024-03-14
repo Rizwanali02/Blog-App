@@ -16,7 +16,7 @@ const app = express();
 dbConnection();
 
 app.use(cors({
-    origin: `*`,
+    origin: `https://blog-app-ivory-iota.vercel.app`,
     methods: ["GET", "PUT", "DELETE", "POST"],
     credentials: true
 }));
